@@ -10,9 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --yellow: #FFC512; /* sunflower yellow */
+    --accent: #FFC512; /* sunflower yellow */
+    --accent-soft: rgba(255, 197, 18, 0.18);
+    --accent-glow: rgba(255, 197, 18, 0.22);
     --black: #0a0a0a;
     --white: #f5f5f5;
+  }
+
+  body.hard {
+    --accent: #FF3B3B; /* hard mode red */
+    --accent-soft: rgba(255, 59, 59, 0.18);
+    --accent-glow: rgba(255, 59, 59, 0.22);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,6 +44,11 @@
 
   a { color: inherit; text-decoration: none; }
 
+  /* Copy swapping: .easy shows by default, .hard-copy shows in hard mode */
+  .hard-copy { display: none; }
+  body.hard .hard-copy { display: revert; }
+  body.hard .easy { display: none; }
+
   /* ---------- Header ---------- */
   header {
     position: fixed;
@@ -43,6 +56,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     padding: 1.25rem 1.5rem;
     background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0.7) 70%, transparent);
     z-index: 100;
@@ -53,7 +67,10 @@
     text-transform: uppercase;
     font-size: 1.35rem;
     letter-spacing: 0.02em;
+    white-space: nowrap;
   }
+
+  .header-right { display: flex; align-items: center; gap: 1.75rem; }
 
   nav { display: flex; gap: 1.75rem; }
 
@@ -65,7 +82,51 @@
     opacity: 0.9;
   }
 
-  nav a:hover { color: var(--yellow); }
+  nav a:hover { color: var(--accent); }
+
+  /* ---------- Hard mode toggle ---------- */
+  .mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: 1px solid #333;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    color: var(--white);
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    transition: border-color 0.25s ease;
+  }
+
+  .mode-toggle:hover { border-color: var(--accent); }
+
+  .mode-toggle .track {
+    width: 34px;
+    height: 18px;
+    border-radius: 999px;
+    background: #2c2c2c;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.25s ease;
+  }
+
+  .mode-toggle .knob {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  body.hard .mode-toggle .track { background: rgba(255,59,59,0.35); }
+  body.hard .mode-toggle .knob { transform: translateX(16px); }
+  body.hard .mode-toggle { color: var(--accent); border-color: var(--accent); }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -80,7 +141,7 @@
   }
 
   .hero h1 {
-    color: var(--yellow);
+    color: var(--accent);
     font-size: clamp(3.4rem, 14vw, 12rem);
   }
 
@@ -111,7 +172,7 @@
   }
 
   .scroll-cue .arrow {
-    color: var(--yellow);
+    color: var(--accent);
     font-size: 1.5rem;
     animation: bob 1.6s ease-in-out infinite;
   }
@@ -135,14 +196,14 @@
     line-height: 1.15;
   }
 
-  .intro .hl { color: var(--yellow); }
+  .hl { color: var(--accent); }
 
   .cta-link {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     margin-top: 2.5rem;
-    color: var(--yellow);
+    color: var(--accent);
     font-family: 'Anton', sans-serif;
     text-transform: uppercase;
     font-size: 1.15rem;
@@ -155,11 +216,10 @@
   /* ---------- Pill pattern divider ---------- */
   .pattern {
     height: 160px;
-    background-image: radial-gradient(var(--yellow) 0 0);
     background-image:
       repeating-linear-gradient(
         90deg,
-        var(--yellow) 0 14px,
+        var(--accent) 0 14px,
         transparent 14px 34px
       );
     -webkit-mask-image: repeating-linear-gradient(0deg, #000 0 26px, transparent 26px 40px);
@@ -183,6 +243,8 @@
     font-weight: 300;
     letter-spacing: 0.05em;
   }
+
+  body.hard .section-heading h2 .light { display: block; }
 
   /* ---------- Episode cards ---------- */
   .cards {
@@ -215,7 +277,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 75% 20%, rgba(255,197,18,0.22), transparent 55%),
+      radial-gradient(circle at 75% 20%, var(--accent-glow), transparent 55%),
       linear-gradient(to top, rgba(10,10,10,0.85), transparent 60%);
   }
 
@@ -225,7 +287,7 @@
     right: 1.5rem;
     font-family: 'Anton', sans-serif;
     font-size: 4.5rem;
-    color: rgba(255,197,18,0.18);
+    color: var(--accent-soft);
     line-height: 1;
   }
 
@@ -247,7 +309,7 @@
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.15em;
-    color: var(--yellow);
+    color: var(--accent);
   }
 
   /* ---------- Pitch section ---------- */
@@ -261,8 +323,6 @@
     font-size: clamp(2.4rem, 9vw, 5rem);
     margin-bottom: 1rem;
   }
-
-  .pitch h2 .hl { color: var(--yellow); }
 
   .pitch p.lede {
     font-weight: 300;
@@ -280,7 +340,7 @@
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.15em;
-    color: var(--yellow);
+    color: var(--accent);
     font-weight: 500;
   }
 
@@ -297,14 +357,14 @@
 
   input:focus, textarea:focus {
     outline: none;
-    border-color: var(--yellow);
+    border-color: var(--accent);
   }
 
   textarea { min-height: 9rem; resize: vertical; }
 
-  button {
+  button[type="submit"] {
     justify-self: start;
-    background: var(--yellow);
+    background: var(--accent);
     color: var(--black);
     border: none;
     border-radius: 999px;
@@ -317,7 +377,7 @@
     transition: transform 0.15s ease;
   }
 
-  button:hover { transform: scale(1.04); }
+  button[type="submit"]:hover { transform: scale(1.04); }
 
   /* ---------- Footer ---------- */
   footer {
@@ -334,8 +394,9 @@
     opacity: 0.7;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     nav { display: none; }
+    .logo { font-size: 1.1rem; }
   }
 </style>
 </head>
@@ -343,20 +404,33 @@
 
 <header>
   <a class="logo" href="#top">Teach Us Something</a>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#episodes">Episodes</a>
-    <a href="#pitch">Pitch Us</a>
-  </nav>
+  <div class="header-right">
+    <nav>
+      <a href="#about">About</a>
+      <a href="#episodes">Episodes</a>
+      <a href="#pitch">Pitch Us</a>
+    </nav>
+    <button class="mode-toggle" id="mode-toggle" type="button" aria-pressed="false">
+      Hard Mode
+      <span class="track"><span class="knob"></span></span>
+    </button>
+  </div>
 </header>
 
 <!-- Hero -->
 <section class="hero" id="top">
   <h1>
-    <span class="line">Teach Us</span>
-    <span class="line">Something</span>
+    <span class="easy">
+      <span class="line">Teach Us</span>
+      <span class="line">Something</span>
+    </span>
+    <span class="hard-copy">
+      <span class="line">Teach Us</span>
+      <span class="line">Something Hard</span>
+    </span>
   </h1>
-  <p class="tagline">The podcast where everyone has something to teach</p>
+  <p class="tagline easy">The podcast where everyone has something to teach</p>
+  <p class="tagline hard-copy">Lessons from the hardest places on earth</p>
   <a class="scroll-cue" href="#about">
     Scroll
     <span class="arrow">&darr;</span>
@@ -365,21 +439,33 @@
 
 <!-- Intro -->
 <section class="intro" id="about">
-  <p class="big">
+  <p class="big easy">
     <span class="hl">Teach Us Something</span> is a podcast of
     <span class="hl">10 to 30 minute</span> conversations about whatever
     it is that somebody has to teach &mdash; a skill, an obsession, a hard-won
     lesson, or something you never knew you needed to know.
     <span class="hl">Everyone knows something worth sharing.</span>
   </p>
-  <a class="cta-link" href="#pitch">Pitch us your lesson <span class="arrow">&rarr;</span></a>
+  <p class="big hard-copy">
+    <span class="hl">Hard Mode</span> is
+    <span class="hl">10 to 30 minute</span> conversations about lessons learned
+    in <span class="hl">hard places</span> &mdash; prison cells, night shifts,
+    war zones, hospital wards, rock bottom.
+    <span class="hl">The hardest places teach the deepest lessons.</span>
+  </p>
+  <a class="cta-link" href="#pitch">
+    <span class="easy">Pitch us your lesson</span>
+    <span class="hard-copy">Tell us where you've been</span>
+    <span class="arrow">&rarr;</span>
+  </a>
 </section>
 
 <div class="pattern" aria-hidden="true"></div>
 
 <!-- Episodes -->
 <div class="section-heading" id="episodes">
-  <h2>What We've<span class="light">Learned So Far</span></h2>
+  <h2 class="easy">What We've<span class="light">Learned So Far</span></h2>
+  <h2 class="hard-copy">What We Learned<span class="light">The Hard Way</span></h2>
 </div>
 
 <div class="cards">
@@ -398,19 +484,27 @@
   <article class="card">
     <span class="num">03</span>
     <span class="arrow">&rarr;</span>
-    <h3>This Could Be You</h3>
-    <p class="meta">Pitch us below</p>
+    <h3 class="easy">This Could Be You</h3>
+    <h3 class="hard-copy">You Made It Through</h3>
+    <p class="meta easy">Pitch us below</p>
+    <p class="meta hard-copy">Now teach us &mdash; pitch below</p>
   </article>
 </div>
 
 <!-- Pitch -->
 <section class="pitch" id="pitch">
-  <h2>Teach <span class="hl">Us</span> Something</h2>
-  <p class="lede">
+  <h2 class="easy">Teach <span class="hl">Us</span> Something</h2>
+  <h2 class="hard-copy">Teach Us Something <span class="hl">Hard</span></h2>
+  <p class="lede easy">
     Got something to teach? Send us a pitch. It doesn't need to be polished
     &mdash; just tell us what you know, why it matters, and why you're the
     person to teach it. If it grabs us, we'll invite you on for a 10&ndash;30
     minute conversation.
+  </p>
+  <p class="lede hard-copy">
+    Been somewhere hard? Send us a pitch. Tell us where you were, what it
+    took to get through, and what it taught you that nowhere else could.
+    If it grabs us, we'll invite you on for a 10&ndash;30 minute conversation.
   </p>
   <form id="pitch-form">
     <div class="field">
@@ -422,27 +516,59 @@
       <input type="email" id="email" name="email" required autocomplete="email">
     </div>
     <div class="field">
-      <label for="topic">What do you want to teach us?</label>
+      <label for="topic" class="easy">What do you want to teach us?</label>
+      <label for="topic" class="hard-copy">What did the hard place teach you?</label>
       <textarea id="topic" name="topic" required
-        placeholder="e.g. How to negotiate anything, why mushrooms run the forest, the art of sharpening a knife..."></textarea>
+        placeholder="e.g. How to negotiate anything, why mushrooms run the forest, the art of sharpening a knife..."
+        data-easy-placeholder="e.g. How to negotiate anything, why mushrooms run the forest, the art of sharpening a knife..."
+        data-hard-placeholder="e.g. What a prison cell teaches you about time, lessons from a night shift in the ER, what I learned at rock bottom..."></textarea>
     </div>
-    <button type="submit">Send Your Pitch &rarr;</button>
+    <button type="submit">
+      <span class="easy">Send Your Pitch &rarr;</span>
+      <span class="hard-copy">Send It Anyway &rarr;</span>
+    </button>
   </form>
 </section>
 
 <footer>
   <span>Teach Us Something &copy; 2026</span>
-  <span>Everyone knows something worth sharing</span>
+  <span class="easy">Everyone knows something worth sharing</span>
+  <span class="hard-copy">The hardest places teach the deepest lessons</span>
 </footer>
 
 <script>
+  var toggle = document.getElementById('mode-toggle');
+  var topicField = document.getElementById('topic');
+
+  function setMode(hard) {
+    document.body.classList.toggle('hard', hard);
+    toggle.setAttribute('aria-pressed', String(hard));
+    topicField.placeholder = hard
+      ? topicField.getAttribute('data-hard-placeholder')
+      : topicField.getAttribute('data-easy-placeholder');
+    try { localStorage.setItem('tus-hard-mode', hard ? '1' : '0'); } catch (e) {}
+  }
+
+  toggle.addEventListener('click', function () {
+    setMode(!document.body.classList.contains('hard'));
+  });
+
+  try {
+    if (localStorage.getItem('tus-hard-mode') === '1') setMode(true);
+  } catch (e) {}
+
   document.getElementById('pitch-form').addEventListener('submit', function (e) {
     e.preventDefault();
+    var hard = document.body.classList.contains('hard');
     var name = encodeURIComponent(document.getElementById('name').value);
     var email = encodeURIComponent(document.getElementById('email').value);
-    var topic = encodeURIComponent(document.getElementById('topic').value);
-    var subject = encodeURIComponent('Podcast pitch: Teach Us Something');
-    var body = 'Name: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0AWhat I want to teach:%0D%0A' + topic;
+    var topic = encodeURIComponent(topicField.value);
+    var subject = encodeURIComponent(hard
+      ? 'Podcast pitch (Hard Mode): Teach Us Something'
+      : 'Podcast pitch: Teach Us Something');
+    var body = 'Name: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0A'
+      + (hard ? 'What the hard place taught me:' : 'What I want to teach:')
+      + '%0D%0A' + topic;
     window.location.href = 'mailto:taytoddpattison@gmail.com?subject=' + subject + '&body=' + body;
   });
 </script>
