@@ -3,24 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teach Us Something — The Podcast</title>
-<meta name="description" content="Teach Us Something: 10–30 minute conversations about whatever it is somebody has to teach. Pitch us what you want to teach.">
+<title>Spacious — an audio home for conversations that need room</title>
+<meta name="description" content="Spacious is an audio home for conversations that need room. Some are about something a person knows. Some are hard. Some are spicy. Some may eventually be deleted. Hosted by Grace.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,200;1,6..72,300;1,6..72,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --accent: #FFC512; /* sunflower yellow */
-    --accent-soft: rgba(255, 197, 18, 0.18);
-    --accent-glow: rgba(255, 197, 18, 0.22);
-    --black: #0a0a0a;
-    --white: #f5f5f5;
-  }
-
-  body.hard {
-    --accent: #FF3B3B; /* hard mode red */
-    --accent-soft: rgba(255, 59, 59, 0.18);
-    --accent-glow: rgba(255, 59, 59, 0.22);
+    --paper: #fbfbf9;
+    --ink: #1e2ba8;
+    --ink-soft: rgba(30, 43, 168, 0.55);
+    --ink-faint: rgba(30, 43, 168, 0.14);
+    --text: #23232a;
+    --text-soft: #55555e;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,105 +23,50 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Oswald', sans-serif;
+    background: var(--paper);
+    color: var(--text);
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .display {
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    line-height: 0.95;
-    letter-spacing: 0.01em;
+  a { color: var(--ink); text-decoration: none; }
+
+  .hand {
+    font-family: 'Caveat', cursive;
+    color: var(--ink);
   }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* Copy swapping: .easy shows by default, .hard-copy shows in hard mode */
-  .hard-copy { display: none; }
-  body.hard .hard-copy { display: revert; }
-  body.hard .easy { display: none; }
 
   /* ---------- Header ---------- */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0.7) 70%, transparent);
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to bottom, rgba(251,251,249,0.95), rgba(251,251,249,0.8) 70%, transparent);
     z-index: 100;
   }
 
   .logo {
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.35rem;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: var(--ink);
   }
 
-  .header-right { display: flex; align-items: center; gap: 1.75rem; }
-
-  nav { display: flex; gap: 1.75rem; }
+  nav { display: flex; gap: 2rem; }
 
   nav a {
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    opacity: 0.9;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-soft);
   }
 
-  nav a:hover { color: var(--accent); }
-
-  /* ---------- Hard mode toggle ---------- */
-  .mode-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: none;
-    border: 1px solid #333;
-    border-radius: 999px;
-    padding: 0.45rem 0.9rem;
-    cursor: pointer;
-    color: var(--white);
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    transition: border-color 0.25s ease;
-  }
-
-  .mode-toggle:hover { border-color: var(--accent); }
-
-  .mode-toggle .track {
-    width: 34px;
-    height: 18px;
-    border-radius: 999px;
-    background: #2c2c2c;
-    position: relative;
-    flex-shrink: 0;
-    transition: background 0.25s ease;
-  }
-
-  .mode-toggle .knob {
-    position: absolute;
-    top: 2px; left: 2px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--accent);
-    transition: transform 0.25s ease, background 0.25s ease;
-  }
-
-  body.hard .mode-toggle .track { background: rgba(255,59,59,0.35); }
-  body.hard .mode-toggle .knob { transform: translateX(16px); }
-  body.hard .mode-toggle { color: var(--accent); border-color: var(--accent); }
+  nav a:hover { color: var(--ink); }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -135,440 +75,393 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 6rem 1rem 5rem;
     text-align: center;
+    padding: 7rem 1.5rem 4rem;
   }
 
-  .hero h1 {
-    color: var(--accent);
-    font-size: clamp(3.4rem, 14vw, 12rem);
+  .hero img.wordmark {
+    width: min(34rem, 86vw);
+    height: auto;
+    mix-blend-mode: multiply;
   }
-
-  .hero h1 .line { display: block; }
-  .hero h1 .line:nth-child(2) { color: var(--white); }
 
   .hero .tagline {
-    margin-top: 2rem;
-    text-transform: uppercase;
-    font-weight: 300;
-    letter-spacing: 0.25em;
-    font-size: clamp(0.75rem, 2.5vw, 1rem);
+    margin-top: 1rem;
+    font-size: clamp(1.15rem, 3.4vw, 1.5rem);
+    font-style: italic;
+    color: var(--text-soft);
+    max-width: 26em;
+  }
+
+  .hero .host {
+    margin-top: 2.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Descending line motif ---------- */
+  .descent {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 0;
+  }
+
+  .descent svg { display: block; }
+  .descent path {
+    stroke: var(--ink);
+    stroke-width: 3.2;
+    fill: none;
+    stroke-linecap: round;
     opacity: 0.85;
   }
 
-  .scroll-cue {
-    position: absolute;
-    bottom: 2.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .scroll-cue .arrow {
-    color: var(--accent);
-    font-size: 1.5rem;
-    animation: bob 1.6s ease-in-out infinite;
-  }
-
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-
-  /* ---------- Intro ---------- */
-  .intro {
-    padding: 7rem 1.5rem;
-    max-width: 60rem;
+  /* ---------- Sections ---------- */
+  section {
+    max-width: 40rem;
     margin: 0 auto;
+    padding: 8rem 1.5rem;
   }
 
-  .intro p.big {
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: clamp(1.6rem, 5.2vw, 3.2rem);
+  .kicker {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ---------- Manifesto ---------- */
+  .manifesto p {
+    font-size: clamp(1.5rem, 4.6vw, 2.2rem);
+    font-weight: 200;
+    line-height: 1.45;
+  }
+
+  .manifesto p + p { margin-top: 2.5rem; }
+
+  .manifesto .ink { color: var(--ink); font-weight: 300; }
+
+  /* ---------- Rooms ---------- */
+  .rooms { max-width: 46rem; }
+
+  .rooms-list { margin-top: 1rem; }
+
+  .room {
+    display: block;
+    padding: 2.75rem 0;
+    border-bottom: 1px solid var(--ink-faint);
+  }
+
+  .room:first-child { border-top: 1px solid var(--ink-faint); }
+
+  .room h3 {
+    font-family: 'Newsreader', serif;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    line-height: 1.1;
+  }
+
+  .room h3 .ink { color: var(--ink); }
+
+  .room p {
+    margin-top: 0.65rem;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text-soft);
+  }
+
+  .rooms .note {
+    margin-top: 2.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- The test ---------- */
+  .test { text-align: center; max-width: 44rem; }
+
+  .test blockquote {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 200;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .test blockquote .ink { color: var(--ink); font-style: normal; }
+
+  .test .answer {
+    margin-top: 2rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--ink);
+  }
+
+  /* ---------- Audio-only ---------- */
+  .audio p {
+    font-size: 1.3rem;
+    line-height: 1.65;
+    color: var(--text-soft);
+  }
+
+  .audio p + p { margin-top: 1.75rem; }
+
+  .audio .lead {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 300;
+    color: var(--text);
+  }
+
+  /* ---------- Pitch ---------- */
+  .pitch h2 {
+    font-weight: 300;
+    font-size: clamp(2rem, 6.5vw, 3rem);
     line-height: 1.15;
   }
 
-  .hl { color: var(--accent); }
+  .pitch h2 .ink { color: var(--ink); }
 
-  .cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 2.5rem;
-    color: var(--accent);
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.15rem;
-    letter-spacing: 0.03em;
-  }
-
-  .cta-link .arrow { transition: transform 0.2s ease; }
-  .cta-link:hover .arrow { transform: translateX(6px); }
-
-  /* ---------- Pill pattern divider ---------- */
-  .pattern {
-    height: 160px;
-    background-image:
-      repeating-linear-gradient(
-        90deg,
-        var(--accent) 0 14px,
-        transparent 14px 34px
-      );
-    -webkit-mask-image: repeating-linear-gradient(0deg, #000 0 26px, transparent 26px 40px);
-    mask-image: repeating-linear-gradient(0deg, #000 0 26px, transparent 26px 40px);
-    opacity: 0.9;
-  }
-
-  /* ---------- Section heading ---------- */
-  .section-heading {
-    text-align: center;
-    padding: 6rem 1.5rem 3.5rem;
-  }
-
-  .section-heading h2 {
-    font-size: clamp(2.2rem, 8vw, 4.5rem);
-  }
-
-  .section-heading h2 .light {
-    display: block;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-  }
-
-  body.hard .section-heading h2 .light { display: block; }
-
-  /* ---------- Episode cards ---------- */
-  .cards {
-    display: flex;
-    gap: 1.5rem;
-    padding: 0 1.5rem 6rem;
-    max-width: 72rem;
-    margin: 0 auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-
-  .card {
-    flex: 0 0 min(80vw, 22rem);
-    scroll-snap-align: center;
-    aspect-ratio: 1 / 1.05;
-    border-radius: 24px;
-    background: #1a1a1a;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.75rem;
-    overflow: hidden;
-    border: 1px solid #262626;
-  }
-
-  .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 75% 20%, var(--accent-glow), transparent 55%),
-      linear-gradient(to top, rgba(10,10,10,0.85), transparent 60%);
-  }
-
-  .card .num {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
-    font-family: 'Anton', sans-serif;
-    font-size: 4.5rem;
-    color: var(--accent-soft);
-    line-height: 1;
-  }
-
-  .card .arrow {
-    position: relative;
-    color: var(--white);
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .card h3 {
-    position: relative;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-  }
-
-  .card .meta {
-    position: relative;
-    margin-top: 0.5rem;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-  }
-
-  /* ---------- Pitch section ---------- */
-  .pitch {
-    padding: 6rem 1.5rem 7rem;
-    max-width: 44rem;
-    margin: 0 auto;
-  }
-
-  .pitch h2 {
-    font-size: clamp(2.4rem, 9vw, 5rem);
-    margin-bottom: 1rem;
-  }
-
-  .pitch p.lede {
-    font-weight: 300;
-    font-size: 1.1rem;
+  .pitch .lede {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1.6;
-    opacity: 0.85;
+    color: var(--text-soft);
     margin-bottom: 3rem;
   }
 
-  form { display: grid; gap: 1.5rem; }
+  form { display: grid; gap: 1.75rem; }
 
   .field { display: grid; gap: 0.5rem; }
 
   label {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    font-weight: 500;
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    color: var(--ink);
   }
 
-  input, textarea {
-    background: #161616;
-    border: 1px solid #2c2c2c;
-    border-radius: 12px;
-    padding: 0.9rem 1rem;
-    color: var(--white);
-    font-family: 'Oswald', sans-serif;
+  input, textarea, select {
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--ink-faint);
+    padding: 0.6rem 0.1rem;
+    color: var(--text);
+    font-family: 'Newsreader', serif;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 1.15rem;
+    border-radius: 0;
+    appearance: none;
   }
 
-  input:focus, textarea:focus {
+  select { cursor: pointer; }
+
+  input::placeholder, textarea::placeholder { color: #a9a9b2; font-style: italic; }
+
+  input:focus, textarea:focus, select:focus {
     outline: none;
-    border-color: var(--accent);
+    border-bottom-color: var(--ink);
   }
 
-  textarea { min-height: 9rem; resize: vertical; }
+  textarea { min-height: 8rem; resize: vertical; line-height: 1.6; }
 
   button[type="submit"] {
     justify-self: start;
-    background: var(--accent);
-    color: var(--black);
+    background: var(--ink);
+    color: var(--paper);
     border: none;
     border-radius: 999px;
-    padding: 1rem 2.5rem;
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.05rem;
-    letter-spacing: 0.03em;
+    padding: 0.9rem 2.4rem;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 1.15rem;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease;
   }
 
-  button[type="submit"]:hover { transform: scale(1.04); }
+  button[type="submit"]:hover { transform: scale(1.03); opacity: 0.92; }
 
   /* ---------- Footer ---------- */
   footer {
-    border-top: 1px solid #1f1f1f;
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    opacity: 0.7;
+    text-align: center;
+    padding: 5rem 1.5rem 6rem;
   }
+
+  footer .line {
+    width: 5rem;
+    height: 1px;
+    background: var(--ink-faint);
+    margin: 0 auto 2.5rem;
+  }
+
+  footer p {
+    font-style: italic;
+    color: var(--text-soft);
+    font-size: 1rem;
+  }
+
+  footer .hand { font-size: 1.4rem; margin-top: 0.75rem; display: block; }
 
   @media (max-width: 640px) {
     nav { display: none; }
-    .logo { font-size: 1.1rem; }
+    section { padding: 5.5rem 1.5rem; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#top">Teach Us Something</a>
-  <div class="header-right">
-    <nav>
-      <a href="#about">About</a>
-      <a href="#episodes">Episodes</a>
-      <a href="#pitch">Pitch Us</a>
-    </nav>
-    <button class="mode-toggle" id="mode-toggle" type="button" aria-pressed="false">
-      Hard Mode
-      <span class="track"><span class="knob"></span></span>
-    </button>
-  </div>
+  <a class="logo" href="#top">Spacious</a>
+  <nav>
+    <a href="#about">about</a>
+    <a href="#rooms">the rooms</a>
+    <a href="#pitch">bring a conversation</a>
+  </nav>
 </header>
 
 <!-- Hero -->
-<section class="hero" id="top">
-  <h1>
-    <span class="easy">
-      <span class="line">Teach Us</span>
-      <span class="line">Something</span>
-    </span>
-    <span class="hard-copy">
-      <span class="line">Teach Us</span>
-      <span class="line">Something Hard</span>
-    </span>
-  </h1>
-  <p class="tagline easy">The podcast where everyone has something to teach</p>
-  <p class="tagline hard-copy">Lessons from the hardest places on earth</p>
-  <a class="scroll-cue" href="#about">
-    Scroll
-    <span class="arrow">&darr;</span>
-  </a>
-</section>
-
-<!-- Intro -->
-<section class="intro" id="about">
-  <p class="big easy">
-    <span class="hl">Teach Us Something</span> is a podcast of
-    <span class="hl">10 to 30 minute</span> conversations about whatever
-    it is that somebody has to teach &mdash; a skill, an obsession, a hard-won
-    lesson, or something you never knew you needed to know.
-    <span class="hl">Everyone knows something worth sharing.</span>
-  </p>
-  <p class="big hard-copy">
-    <span class="hl">Hard Mode</span> is
-    <span class="hl">10 to 30 minute</span> conversations about lessons learned
-    in <span class="hl">hard places</span> &mdash; prison cells, night shifts,
-    war zones, hospital wards, rock bottom.
-    <span class="hl">The hardest places teach the deepest lessons.</span>
-  </p>
-  <a class="cta-link" href="#pitch">
-    <span class="easy">Pitch us your lesson</span>
-    <span class="hard-copy">Tell us where you've been</span>
-    <span class="arrow">&rarr;</span>
-  </a>
-</section>
-
-<div class="pattern" aria-hidden="true"></div>
-
-<!-- Episodes -->
-<div class="section-heading" id="episodes">
-  <h2 class="easy">What We've<span class="light">Learned So Far</span></h2>
-  <h2 class="hard-copy">What We Learned<span class="light">The Hard Way</span></h2>
+<div class="hero" id="top">
+  <img class="wordmark" src="assets/spacious-wordmark.png" alt="Spacious — handwritten in blue ink, underlined, with a loose line descending into the empty page">
+  <p class="tagline">an audio home for conversations that need room</p>
+  <p class="host">hosted by Grace</p>
 </div>
 
-<div class="cards">
-  <article class="card">
-    <span class="num">01</span>
-    <span class="arrow">&rarr;</span>
-    <h3>Coming Soon</h3>
-    <p class="meta">Episode 01 &middot; 10&ndash;30 min</p>
-  </article>
-  <article class="card">
-    <span class="num">02</span>
-    <span class="arrow">&rarr;</span>
-    <h3>Coming Soon</h3>
-    <p class="meta">Episode 02 &middot; 10&ndash;30 min</p>
-  </article>
-  <article class="card">
-    <span class="num">03</span>
-    <span class="arrow">&rarr;</span>
-    <h3 class="easy">This Could Be You</h3>
-    <h3 class="hard-copy">You Made It Through</h3>
-    <p class="meta easy">Pitch us below</p>
-    <p class="meta hard-copy">Now teach us &mdash; pitch below</p>
-  </article>
+<!-- Manifesto -->
+<section class="manifesto" id="about">
+  <span class="kicker">what this is</span>
+  <p>
+    <span class="ink">Spacious</span> is an audio home for conversations
+    that need room.
+  </p>
+  <p>
+    Some are about something a person knows. Some are hard. Some are spicy.
+    Some may eventually be deleted. They can be brief or sprawling, named or
+    anonymous &mdash; carefully made, but never performed for a camera.
+  </p>
+  <p>
+    Hosted by Grace, Spacious follows <span class="ink">better questions</span>
+    wherever they lead.
+  </p>
+</section>
+
+<div class="descent" aria-hidden="true">
+  <svg width="120" height="220" viewBox="0 0 120 220">
+    <path d="M112 8 C60 14, 20 22, 52 34 C84 46, 70 62, 62 84 C54 106, 66 122, 60 148 C56 166, 62 176, 58 192 M42 178 C40 196, 52 206, 66 192"/>
+  </svg>
 </div>
+
+<!-- Rooms -->
+<section class="rooms" id="rooms">
+  <span class="kicker">the rooms</span>
+  <div class="rooms-list">
+    <div class="room">
+      <h3>Teach Me <span class="ink">Something</span></h3>
+      <p>curiosity and lived knowledge</p>
+    </div>
+    <div class="room">
+      <h3>Teach Me Something <span class="ink">Hard</span></h3>
+      <p>things learned through difficulty</p>
+    </div>
+    <div class="room">
+      <h3>Teach Me Something <span class="ink">Spicy</span></h3>
+      <p>desire, taboo, secrets, uncomfortable ideas</p>
+    </div>
+    <div class="room">
+      <h3>We'll <span class="ink">Delete</span> This</h3>
+      <p>conversations that need an extra layer of permission</p>
+    </div>
+    <div class="room">
+      <h3>Future <span class="ink">Cast</span></h3>
+      <p>an existing body of work, and occasional future-facing conversations</p>
+    </div>
+  </div>
+  <p class="note">one feed &mdash; each episode carries the name of its room</p>
+</section>
+
+<!-- The editorial test -->
+<section class="test">
+  <span class="kicker">the only test</span>
+  <blockquote>
+    Does this conversation go somewhere
+    <span class="ink">an ordinary interview wouldn't?</span>
+  </blockquote>
+  <p class="answer">if yes, it belongs in Spacious.</p>
+</section>
+
+<!-- Audio-only -->
+<section class="audio">
+  <span class="kicker">why audio only</span>
+  <p class="lead">
+    Audio-only is part of the thesis, not a production compromise.
+  </p>
+  <p>
+    When nobody has to manage their face, posture, surroundings or personal
+    brand for a camera, different things become possible. A conversation can
+    happen on a walk, in someone's kitchen, after midnight, while travelling
+    &mdash; wherever it belongs.
+  </p>
+  <p>
+    Episodes can last twelve minutes or three hours. What holds Spacious
+    together is the condition it creates: enough room for a conversation to
+    become something neither person had prepared.
+  </p>
+</section>
 
 <!-- Pitch -->
 <section class="pitch" id="pitch">
-  <h2 class="easy">Teach <span class="hl">Us</span> Something</h2>
-  <h2 class="hard-copy">Teach Us Something <span class="hl">Hard</span></h2>
-  <p class="lede easy">
-    Got something to teach? Send us a pitch. It doesn't need to be polished
-    &mdash; just tell us what you know, why it matters, and why you're the
-    person to teach it. If it grabs us, we'll invite you on for a 10&ndash;30
-    minute conversation.
-  </p>
-  <p class="lede hard-copy">
-    Been somewhere hard? Send us a pitch. Tell us where you were, what it
-    took to get through, and what it taught you that nowhere else could.
-    If it grabs us, we'll invite you on for a 10&ndash;30 minute conversation.
+  <span class="kicker">bring a conversation</span>
+  <h2>What needs <span class="ink">room?</span></h2>
+  <p class="lede">
+    Something you know. Something hard. Something you'd only say with an
+    extra layer of permission. It doesn't need to be polished &mdash; and you
+    don't need to know which room it belongs in. That can come afterwards.
   </p>
   <form id="pitch-form">
     <div class="field">
-      <label for="name">Your name</label>
-      <input type="text" id="name" name="name" required autocomplete="name">
+      <label for="name">a name to call you</label>
+      <input type="text" id="name" name="name" required
+        placeholder="your name, or one you'd rather go by">
     </div>
     <div class="field">
-      <label for="email">Your email</label>
-      <input type="email" id="email" name="email" required autocomplete="email">
+      <label for="email">where to reach you</label>
+      <input type="email" id="email" name="email" required autocomplete="email"
+        placeholder="you@somewhere.com">
     </div>
     <div class="field">
-      <label for="topic" class="easy">What do you want to teach us?</label>
-      <label for="topic" class="hard-copy">What did the hard place teach you?</label>
+      <label for="room">which room, if you know</label>
+      <select id="room" name="room">
+        <option value="Not sure yet" selected>not sure yet — that's fine</option>
+        <option value="Teach Me Something">Teach Me Something</option>
+        <option value="Teach Me Something Hard">Teach Me Something Hard</option>
+        <option value="Teach Me Something Spicy">Teach Me Something Spicy</option>
+        <option value="We'll Delete This">We'll Delete This</option>
+        <option value="Future Cast">Future Cast</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="topic">the conversation</label>
       <textarea id="topic" name="topic" required
-        placeholder="e.g. How to negotiate anything, why mushrooms run the forest, the art of sharpening a knife..."
-        data-easy-placeholder="e.g. How to negotiate anything, why mushrooms run the forest, the art of sharpening a knife..."
-        data-hard-placeholder="e.g. What a prison cell teaches you about time, lessons from a night shift in the ER, what I learned at rock bottom..."></textarea>
+        placeholder="What do you want to talk about, and where might it go that an ordinary interview wouldn't?"></textarea>
     </div>
-    <button type="submit">
-      <span class="easy">Send Your Pitch &rarr;</span>
-      <span class="hard-copy">Send It Anyway &rarr;</span>
-    </button>
+    <button type="submit">send it &rarr;</button>
   </form>
 </section>
 
 <footer>
-  <span>Teach Us Something &copy; 2026</span>
-  <span class="easy">Everyone knows something worth sharing</span>
-  <span class="hard-copy">The hardest places teach the deepest lessons</span>
+  <div class="line"></div>
+  <p>Spacious &copy; 2026 &mdash; a quest for better questions</p>
+  <span class="hand">the negative space is not unfinished. it's the entire point.</span>
 </footer>
 
 <script>
-  var toggle = document.getElementById('mode-toggle');
-  var topicField = document.getElementById('topic');
-
-  function setMode(hard) {
-    document.body.classList.toggle('hard', hard);
-    toggle.setAttribute('aria-pressed', String(hard));
-    topicField.placeholder = hard
-      ? topicField.getAttribute('data-hard-placeholder')
-      : topicField.getAttribute('data-easy-placeholder');
-    try { localStorage.setItem('tus-hard-mode', hard ? '1' : '0'); } catch (e) {}
-  }
-
-  toggle.addEventListener('click', function () {
-    setMode(!document.body.classList.contains('hard'));
-  });
-
-  try {
-    if (localStorage.getItem('tus-hard-mode') === '1') setMode(true);
-  } catch (e) {}
-
   document.getElementById('pitch-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    var hard = document.body.classList.contains('hard');
     var name = encodeURIComponent(document.getElementById('name').value);
     var email = encodeURIComponent(document.getElementById('email').value);
-    var topic = encodeURIComponent(topicField.value);
-    var subject = encodeURIComponent(hard
-      ? 'Podcast pitch (Hard Mode): Teach Us Something'
-      : 'Podcast pitch: Teach Us Something');
-    var body = 'Name: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0A'
-      + (hard ? 'What the hard place taught me:' : 'What I want to teach:')
-      + '%0D%0A' + topic;
+    var room = encodeURIComponent(document.getElementById('room').value);
+    var topic = encodeURIComponent(document.getElementById('topic').value);
+    var subject = encodeURIComponent('Spacious — a conversation that needs room');
+    var body = 'Name: ' + name + '%0D%0AEmail: ' + email
+      + '%0D%0ARoom: ' + room
+      + '%0D%0A%0D%0AThe conversation:%0D%0A' + topic;
     window.location.href = 'mailto:taytoddpattison@gmail.com?subject=' + subject + '&body=' + body;
   });
 </script>
