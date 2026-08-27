@@ -142,33 +142,102 @@
 
   .manifesto .ink { color: var(--ink); font-weight: 300; }
 
-  /* ---------- Rooms ---------- */
-  .rooms { max-width: 46rem; }
+  /* ---------- Episodes ---------- */
+  .episodes { max-width: 62rem; }
 
-  .rooms-list { margin-top: 1rem; }
-
-  .room {
-    display: block;
-    padding: 2.75rem 0;
-    border-bottom: 1px solid var(--ink-faint);
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
-  .room:first-child { border-top: 1px solid var(--ink-faint); }
+  .filters button {
+    background: none;
+    border: none;
+    padding: 0.2rem 0;
+    cursor: pointer;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    border-bottom: 1.5px solid transparent;
+  }
 
-  .room h3 {
+  .filters button:hover { color: var(--ink); }
+
+  .filters button.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  .filters .sort {
+    margin-left: auto;
+    font-family: 'Caveat', cursive;
+    font-style: normal;
+    font-size: 1.3rem;
+    color: var(--ink-soft);
+  }
+
+  .filters .sort:hover { color: var(--ink); }
+
+  .carousel {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink-faint) transparent;
+  }
+
+  .ep-card {
+    flex: 0 0 min(72vw, 19rem);
+    scroll-snap-align: start;
+    border: 1px solid var(--ink-faint);
+    border-radius: 18px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 15rem;
+    background: #fff;
+  }
+
+  .ep-card .theme {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+
+  .ep-card h3 {
+    margin-top: 0.9rem;
     font-family: 'Newsreader', serif;
     font-weight: 400;
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
-    line-height: 1.1;
+    font-size: 1.6rem;
+    line-height: 1.15;
   }
 
-  .room h3 .ink { color: var(--ink); }
-
-  .room p {
-    margin-top: 0.65rem;
-    font-size: 1.15rem;
+  .ep-card .date {
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
     font-style: italic;
     color: var(--text-soft);
+  }
+
+  .ep-card .blurb {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  .carousel .empty {
+    font-style: italic;
+    color: var(--text-soft);
+    padding: 2rem 0;
   }
 
   /* ---------- Pitch ---------- */
@@ -271,7 +340,7 @@
   <a class="logo" href="#top">Spacious</a>
   <nav>
     <a href="#about">about</a>
-    <a href="#rooms">the rooms</a>
+    <a href="#episodes">episodes</a>
     <a href="#pitch">bring a conversation</a>
   </nav>
 </header>
@@ -307,27 +376,18 @@
   </svg>
 </div>
 
-<!-- Rooms -->
-<section class="rooms" id="rooms">
-  <span class="kicker">the rooms</span>
-  <div class="rooms-list">
-    <div class="room">
-      <h3>Teach Me <span class="ink">Something</span></h3>
-      <p>curiosity and lived knowledge</p>
-    </div>
-    <div class="room">
-      <h3>Teach Me Something <span class="ink">Hard</span></h3>
-      <p>things learned through difficulty</p>
-    </div>
-    <div class="room">
-      <h3>Teach Me Something <span class="ink">Spicy</span></h3>
-      <p>desire, taboo, secrets, uncomfortable ideas</p>
-    </div>
-    <div class="room">
-      <h3>We'll <span class="ink">Delete</span> This</h3>
-      <p>conversations that need an extra layer of permission</p>
-    </div>
+<!-- Episodes -->
+<section class="episodes" id="episodes">
+  <span class="kicker">episodes</span>
+  <div class="filters" id="theme-filters">
+    <button type="button" class="active" data-theme="all">all</button>
+    <button type="button" data-theme="Teach Me Something">Teach Me Something</button>
+    <button type="button" data-theme="Teach Me Something Hard">Hard</button>
+    <button type="button" data-theme="Teach Me Something Spicy">Spicy</button>
+    <button type="button" data-theme="We'll Delete This">We'll Delete This</button>
+    <button type="button" class="sort" id="sort-toggle">newest first &darr;</button>
   </div>
+  <div class="carousel" id="carousel"></div>
 </section>
 
 <!-- Pitch -->
@@ -346,12 +406,17 @@
         placeholder="your name, or one you'd rather go by">
     </div>
     <div class="field">
-      <label for="email">where to reach you</label>
-      <input type="email" id="email" name="email" required autocomplete="email"
-        placeholder="you@somewhere.com">
+      <label for="whatsapp">where to reach you</label>
+      <input type="tel" id="whatsapp" name="whatsapp" required autocomplete="tel"
+        placeholder="your WhatsApp number, e.g. +44 7700 900000">
     </div>
     <div class="field">
-      <label for="room">which room, if you know</label>
+      <label for="email">email, if you'd rather</label>
+      <input type="email" id="email" name="email" autocomplete="email"
+        placeholder="optional">
+    </div>
+    <div class="field">
+      <label for="room">which theme, if you know</label>
       <select id="room" name="room">
         <option value="Not sure yet" selected>not sure yet — that's fine</option>
         <option value="Teach Me Something">Teach Me Something</option>
@@ -376,15 +441,101 @@
 </footer>
 
 <script>
+  /* ---------- Episodes: swap these placeholders for real episodes ---------- */
+  var episodes = [
+    { num: '001', title: 'Spacious 001', theme: 'Teach Me Something',       date: '2026-09-04', blurb: 'coming soon' },
+    { num: '002', title: 'Spacious 002', theme: 'Teach Me Something Hard',  date: '2026-09-18', blurb: 'coming soon' },
+    { num: '003', title: 'Spacious 003', theme: 'Teach Me Something Spicy', date: '2026-10-02', blurb: 'coming soon' },
+    { num: '004', title: 'Spacious 004', theme: "We'll Delete This",        date: '2026-10-16', blurb: 'coming soon' }
+  ];
+
+  var activeTheme = 'all';
+  var newestFirst = true;
+  var carousel = document.getElementById('carousel');
+  var filterBar = document.getElementById('theme-filters');
+  var sortToggle = document.getElementById('sort-toggle');
+
+  function formatDate(iso) {
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var p = iso.split('-');
+    return parseInt(p[2], 10) + ' ' + months[parseInt(p[1], 10) - 1] + ' ' + p[0];
+  }
+
+  function render() {
+    var list = episodes
+      .filter(function (ep) { return activeTheme === 'all' || ep.theme === activeTheme; })
+      .sort(function (a, b) {
+        return newestFirst ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date);
+      });
+
+    carousel.innerHTML = '';
+
+    if (!list.length) {
+      var empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = 'nothing in this theme yet — maybe that’s yours to start.';
+      carousel.appendChild(empty);
+      return;
+    }
+
+    list.forEach(function (ep) {
+      var card = document.createElement('article');
+      card.className = 'ep-card';
+
+      var theme = document.createElement('span');
+      theme.className = 'theme';
+      theme.textContent = ep.theme;
+
+      var title = document.createElement('h3');
+      title.textContent = ep.title;
+
+      var date = document.createElement('p');
+      date.className = 'date';
+      date.textContent = formatDate(ep.date) + ' · ep ' + ep.num;
+
+      var blurb = document.createElement('p');
+      blurb.className = 'blurb';
+      blurb.textContent = ep.blurb;
+
+      card.appendChild(theme);
+      card.appendChild(title);
+      card.appendChild(date);
+      card.appendChild(blurb);
+      carousel.appendChild(card);
+    });
+  }
+
+  filterBar.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-theme]');
+    if (!btn) return;
+    activeTheme = btn.getAttribute('data-theme');
+    filterBar.querySelectorAll('button[data-theme]').forEach(function (b) {
+      b.classList.toggle('active', b === btn);
+    });
+    render();
+  });
+
+  sortToggle.addEventListener('click', function () {
+    newestFirst = !newestFirst;
+    sortToggle.innerHTML = newestFirst ? 'newest first &darr;' : 'oldest first &uarr;';
+    render();
+  });
+
+  render();
+
+  /* ---------- Pitch form ---------- */
   document.getElementById('pitch-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var name = encodeURIComponent(document.getElementById('name').value);
-    var email = encodeURIComponent(document.getElementById('email').value);
+    var whatsapp = encodeURIComponent(document.getElementById('whatsapp').value);
+    var email = encodeURIComponent(document.getElementById('email').value || 'not given');
     var room = encodeURIComponent(document.getElementById('room').value);
     var topic = encodeURIComponent(document.getElementById('topic').value);
     var subject = encodeURIComponent('Spacious — a conversation that needs room');
-    var body = 'Name: ' + name + '%0D%0AEmail: ' + email
-      + '%0D%0ARoom: ' + room
+    var body = 'Name: ' + name
+      + '%0D%0AWhatsApp: ' + whatsapp
+      + '%0D%0AEmail: ' + email
+      + '%0D%0ATheme: ' + room
       + '%0D%0A%0D%0AThe conversation:%0D%0A' + topic;
     window.location.href = 'mailto:taytoddpattison@gmail.com?subject=' + subject + '&body=' + body;
   });
